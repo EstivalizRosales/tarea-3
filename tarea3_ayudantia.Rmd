@@ -1,0 +1,61 @@
+---
+title: "tarea3_ayudantia"
+output: github_document
+---
+## Estivaliz Rosales
+
+## Actividad 3:
+Replicar el analisis de outliers, debes elegir uno de los dos csv disponibles (pokemon o titanic) y realizar el analisis con algunas de las variables numericas y realizar un pequeño analisis en relacion a los datos encontrados como outliers (en caso de que eligas el csv del titanic solo debes evaluar las columnas AGE y FNLWGT)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Cargar datos
+Como bien sabemos, lo primero que debemos hacer es cargar los datos a nuestro R
+```{r}
+wd = setwd("C:/Users/JuanRosales/OneDrive/Mineria de datos/tarea 3")
+pk = read.csv("pokemon.csv")
+pk
+head(pk)
+```
+
+## Limpieza de datos
+Para poder hacer un correcto analisis de datos, primero vamos a elimiar todas las columnas de datos que no utilizaremos, en nuestro caso, solo nos quedaremos con ataque y velocidad.
+```{r}
+pk
+pk <-  pk[, !(colnames(pk)%in% c("Name","Type.1","Type.2", "Total" , "HP" , "Defense","Generation","Legendary","Sp..Atk","Sp..Def" ))]
+pk
+```
+
+## Primer boxplot
+
+```{r}
+attach(pk)
+att = boxplot(Attack, horizontal = TRUE)
+stats_att = boxplot.stats(Attack)
+att
+stats_att
+```
+Como se puede apresiar, ahora contamos con 800 datos, de los cuales 7 son "atipicos", por lo tanto deben ser eliminados para poder hacer un analisis mas acertado.
+ahora procedemos a eliminar dichos datos.
+```{r}
+pk1 <- Attack[Attack < 170]
+length(Attack) - length(pk1)
+boxplot(pk1, horizontal = TRUE)
+```
+
+Ahora haremos lo mismo con los datos de velocidad
+```{r}
+def = boxplot(Speed, horizontal = TRUE)
+stats_def = boxplot.stats(Speed)
+def
+stats_def
+```
+En este caso, son dos solamente los datos alejados, por ende los eliminaremos.
+```{r}
+pk2 <- Speed[Speed < 160]
+length(Speed) - length(pk2)
+boxplot(pk2, horizontal = TRUE)
+```
+
