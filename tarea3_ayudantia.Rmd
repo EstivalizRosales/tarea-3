@@ -23,9 +23,9 @@ head(pk)
 ## Limpieza de datos
 Para poder hacer un correcto analisis de datos, primero vamos a elimiar todas las columnas de datos que no utilizaremos, en nuestro caso, solo nos quedaremos con ataque y velocidad.
 ```{r}
-pk
+#pk
 pk <-  pk[, !(colnames(pk)%in% c("Name","Type.1","Type.2", "Total" , "HP" , "Defense","Generation","Legendary","Sp..Atk","Sp..Def" ))]
-pk
+#pk
 head(pk)
 ```
 
